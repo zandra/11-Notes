@@ -2,14 +2,14 @@ const express = require('express');
 const path = require('path');
 const mime = require('mime-types');
 const fs = require('fs');
-const noteData = require('./db/db.json');
+const noteJSON = require('./db/db.json');
 
 
 const PORT = 8080;
 
 const app = express();
 
-// Sets up the Express app to handle data parsing
+// User middleware to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -21,43 +21,35 @@ function errorHandle(err) {
   response.end();
 }
 
+// ##### ROUTES #########
+
  // HTML route -> GET Home
  app.get('/', (req, res) => {
    res.sendFile(path.join(__dirname, './public/index.html'));
  });
 
- // HTML route -> GET note form
+ // HTML route => GET note form
  app.get('/notes', (req, res) => {
    res.sendFile(path.join(__dirname, './public/notes.html'));
  });
 
-// API route -> GET note (json)
+// API route => GET all notes (json)
  app.get('/api/notes', (req, res) => {
-  res.json(noteData);
+  res.json(noteJSON);
  });
 
- // POST new note data to api
+ // API route => POST new note data to api
  app.post('/api/notes', (req, res) => {
-   noteData.push(req.body);
+  const id =  noteJSON.length ? noteJSON.length+1 : 1;
+  noteJSON.push( { id, ...req.body} );
    res.json(true);
  });
 
+ // API route => GET note by ID
+ app.get('/api/notes/:id', (req, res) => {
+   res.json(noteJSON[req.params.id]);
+ });
 
+// ######### Server 
 // Setup server
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
-
-
-// App building Workflow
-
-// Define the get/post routes (HTML / API) ~ DONE
-// Define the DELETE route
-// IDs -> create function logic to add ID to req.body 
-// connect getting the input form note data from user input to the post to db POST route 
-// Add error handling
-
-
-//// EXTRA ##### FIGURE OUT A WAY TO REMEMBER THIS
-//// Purpose => Sets up the Express app to handle data parsing
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
