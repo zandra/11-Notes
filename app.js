@@ -21,7 +21,7 @@ function errorHandle(err) {
   response.end();
 }
 
-// ##### ROUTES #########
+// ##### ROUTES #####
 
  // HTML route -> GET Home
  app.get('/', (req, res) => {
@@ -35,21 +35,38 @@ function errorHandle(err) {
 
 // API route => GET all notes (json)
  app.get('/api/notes', (req, res) => {
+  const ids = noteJSON.map(note => note.id);
   res.json(noteJSON);
  });
 
  // API route => POST new note data to api
  app.post('/api/notes', (req, res) => {
-  const id =  noteJSON.length ? noteJSON.length+1 : 1;
+
+  // get Id of last note if it exists or 0
+  const lastId = noteJSON.length ? Math.max(...(noteJSON.map(note => note.id))) : 0;
+  const id = lastId + 1;
   noteJSON.push( { id, ...req.body} );
-   res.json(true);
+  res.json(true);
  });
 
- // API route => GET note by ID
- app.get('/api/notes/:id', (req, res) => {
-   res.json(noteJSON[req.params.id]);
+
+ // API route => DELETE note by ID 
+ app.delete('/api/notes/:id', (req, res) => {
+//find note to be deleted
+res.end("DELETE ME");
+});
+
+ // ## Delete this route before final app
+ // API route => GET note by ID 
+ app.get('/api/notes/note/:id', (req, res) => {
+  const del = noteJSON.map(n => n.id);
+  console.log(req.params.id);
+  const note = noteJSON.filter(n => n.id === JSON.parse(req.params.id));
+  res.json(note);
  });
 
-// ######### Server 
+
+
+// ###### Server ######
 // Setup server
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
