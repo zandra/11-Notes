@@ -1,6 +1,8 @@
-## Note Taker 
+## Welcome to Your Personal Note Taker! 
+
+Create and save unlimited personal or work notes! Delete notes you don't want anymore! Say goodbye to embarrasing 'senior moments' forever!
 
 #### Features
-- Create and save personal or work notes
-- Delete notes that are no longer needed
+- Utilizes NodeJS and Express to create, view, and delete personal notes
+- Runs on PORT 8080
 
