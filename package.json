@@ -5,5 +5,24 @@
     "mime-types": "^2.1.25",
     "pug": "^2.0.4",
     "referrer-policy": "^1.2.0"
-  }
+  },
+  "name": "11-notes",
+  "description": "Create and save unlimited personal or work notes! Delete notes you don't want anymore! Say goodbye to embarrasing 'senior moments' forever!",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zandra/11-Notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zandra/11-Notes/issues"
+  },
+  "homepage": "https://github.com/zandra/11-Notes#readme"
 }
